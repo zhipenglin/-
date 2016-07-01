@@ -74,3 +74,54 @@ for(var i=0; i
 14.如何清除浮动
 
 答案：方法太多，不一一详述，能实现就好
+
+### 二、高级篇
+
+1.有以下一段程序，请写出控制台上两次分别打印出的结果。并从js的词法分析过程简述原因
+
+``` javascript
+var a=10;
+
+function func(){
+  console.log(a);
+  var a=20;
+  console.log(a);
+}
+
+```
+
+答案：undefined 20 
+
+2.请简述什么是作用域链，请用你的话说明在一个作用域中的this是什么？
+
+
+3.请写出一个求N个数组的笛卡尔积的方法比如调用soDkr([['S','M','L','XL'],['红色','白色','黑色','蓝色']]) 返回 \[["S","红色"],["S","白色"],["S","黑色"],["S","蓝色"],["M","红色"],["M","白色"],["M","黑色"],["M","蓝色"],["L","红色"],["L","白色"],["L","黑色"],["L","蓝色"],["XL","红色"],["XL","白色"],["XL","黑色"],["XL","蓝色"]\](注意输入的数组是不定长度的，例子上长度是2，但是可能是N)
+
+答案：
+
+``` javascript
+function soDkr(arr) {
+  var item = arr.shift();
+  function dkr(item1, item2) {
+    var res = [
+    ];
+    for (var i in item1) {
+      for (var j in item2) {
+        if (item1[i] instanceof Array) {
+          var as = item1[i].slice(0);
+          as.push(item2[j]);
+          res.push(as);
+        } else {
+          res.push([item1[i],
+          item2[j]]);
+        }
+      }
+    }
+    return res;
+  }
+  for (var i in arr) {
+    item = dkr(item, arr[i]);
+  }
+  return item;
+}
+```
